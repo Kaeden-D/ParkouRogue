@@ -16,15 +16,26 @@ namespace Chapter.State
                 player = controller;
             }
         }
-
+        /*
         void Update()
         {
 
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 player.addForce(new Vector3(0f, 100f, 0f));
+                player.changeState(GetComponent<AirState>());
             }
 
+        }
+        */
+
+        private void OnJump(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                player.addForce(new Vector3(0f, 500f, 0f));
+                player.changeState(GetComponent<AirState>());
+            }
         }
 
     }
