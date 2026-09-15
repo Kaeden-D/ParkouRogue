@@ -15,6 +15,8 @@ namespace Chapter.State
         public float speed;
         public Vector3 absMaxVelocity;
 
+        public string currentState;
+
         //public Vector3 movVar = new Vector3(1f, 1f, 0f);
         private float side = 0f;
 
@@ -23,18 +25,17 @@ namespace Chapter.State
         void Start()
         {
 
-            state = GetComponent<PassiveState>();
             rb = FindFirstObjectByType<Rigidbody>();
-            state.Handle(this);
+            ChangeState(GetComponent<PassiveState>());
 
         }
 
         void Update()
         {
 
-            if (Mathf.Abs(rb.linearVelocity.x) < absMaxVelocity.x * slow)
+            if (Mathf.Abs(rb.linearVelocity.x) < absMaxVelocity.x * slow || rb.linearVelocity.x * side < 0)
             {
-                addForce(new Vector3(side * speed, 0f, 0f));
+                AddForce(new Vector3(side * speed, 0f, 0f));
             }
             else if (side == 0)
             {
@@ -48,25 +49,39 @@ namespace Chapter.State
             side = value.Get<float>();
         }
 
-        public void changeState(PlayerState upState)
+        public void ChangeState(PlayerState upState)
         {
+            Debug.Log("A");
             state = upState;
             state.Handle(this);
+            currentState = upState.ToString();
         }
 
-        public void addForce(Vector3 dir)
+        public void AddForce(Vector3 dir)
         {
             rb.AddForce(dir);
         }
 
-        public void changeSlow(float value)
+        public void ChangeSlow(float value)
         {
             slow = value;
         }
 
-        public bool isFalling()
+        public bool IsGrounded()
         {
             return rb.linearVelocity.y != 0;
+        }
+
+
+        //Player Input Handling:
+
+
+        private void OnJump(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                state.Jump();
+            }
         }
 
     }

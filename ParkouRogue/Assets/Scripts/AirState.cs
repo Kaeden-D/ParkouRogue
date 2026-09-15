@@ -15,16 +15,24 @@ namespace Chapter.State
             {
                 player = controller;
             }
-            player.changeSlow(0.5f);
+            player.ChangeSlow(0.5f);
+        }
+
+        public void Jump()
+        {
+
         }
 
         void Update()
         {
 
-            if (!player.isFalling())
+            if (player == null)
+                return;
+
+            if (!player.IsGrounded())
             {
-                player.changeSlow(1f);
-                player.changeState(GetComponent<PassiveState>());
+                player.ChangeSlow(1f);
+                player.ChangeState(GetComponent<PassiveState>());
             }
 
         }
