@@ -581,6 +581,7 @@ MonoBehaviour:
   speed: 2
   absMaxVelocity: {x: 7.5, y: 100, z: 0}
   currentState: 
+  skipFrame: 0
 --- !u!114 &922788499
 MonoBehaviour:
   m_ObjectHideFlags: 0

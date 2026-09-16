@@ -18,23 +18,12 @@ namespace Chapter.State
             player.ChangeSlow(0.5f);
         }
 
-        public void Jump()
+        public void Jump() { }
+
+        public void Grounded()
         {
-
-        }
-
-        void Update()
-        {
-
-            if (player == null)
-                return;
-
-            if (!player.IsGrounded())
-            {
-                player.ChangeSlow(1f);
-                player.ChangeState(GetComponent<PassiveState>());
-            }
-
+            player.ChangeSlow(1f);
+            player.ChangeState(GetComponent<PassiveState>());
         }
 
     }

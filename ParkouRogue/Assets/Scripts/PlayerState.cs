@@ -8,6 +8,7 @@ namespace Chapter.State
 
         public void Handle(PlayerController controller);
         public void Jump();
+        public void Grounded();
 
     }
 

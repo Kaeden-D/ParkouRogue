@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
@@ -16,6 +17,7 @@ namespace Chapter.State
         public Vector3 absMaxVelocity;
 
         public string currentState;
+        public int skipFrame = 0;
 
         //public Vector3 movVar = new Vector3(1f, 1f, 0f);
         private float side = 0f;
@@ -42,6 +44,16 @@ namespace Chapter.State
                 rb.linearVelocity.Set(0f, rb.linearVelocity.y, 0f);
             }
 
+            //Skips for 1 frame
+            if (skipFrame > 0)
+            {
+                skipFrame--;
+                return;
+            }
+
+            if (IsGrounded())
+                state.Grounded();
+
         }
 
         public void OnSideways(InputValue value)
@@ -62,6 +74,11 @@ namespace Chapter.State
             rb.AddForce(dir);
         }
 
+        public void AddImpulse(Vector3 dir)
+        {
+            rb.AddForce(dir, ForceMode.Impulse);
+        }
+
         public void ChangeSlow(float value)
         {
             slow = value;
@@ -69,8 +86,16 @@ namespace Chapter.State
 
         public bool IsGrounded()
         {
-            return rb.linearVelocity.y != 0;
+            bool test = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.5f);
+            if (rb.linearVelocity.y == 0)
+            {
+                Debug.Log(test);
+                return test;
+            }
+            return false;
         }
+
+        //State Handling: 
 
 
         //Player Input Handling:
@@ -80,6 +105,7 @@ namespace Chapter.State
         {
             if (value.isPressed)
             {
+                skipFrame = 2;
                 state.Jump();
             }
         }

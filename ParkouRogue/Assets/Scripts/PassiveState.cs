@@ -19,9 +19,11 @@ namespace Chapter.State
 
         public void Jump()
         {
-            player.AddForce(new Vector3(0f, 500f, 0f));
+            player.AddImpulse(new Vector3(0f, 10f, 0f));
             player.ChangeState(GetComponent<AirState>());
         }
+
+        public void Grounded() { }
 
     }
 
