@@ -17,9 +17,15 @@ namespace Chapter.State
         public Vector3 absMaxVelocity;
 
         public string currentState;
-        public int skipFrame = 0;
+        public float stateCooldown;
+        public float stateTime;
 
-        //public Vector3 movVar = new Vector3(1f, 1f, 0f);
+
+        //State Variables: 
+
+        public short isWalled = 0; //0 = Not Walled, -1 = Walled Left, 1 = Walled Right
+        public bool wallCling = false;
+
         private float side = 0f;
 
         private float slow = 1f;
@@ -34,25 +40,39 @@ namespace Chapter.State
 
         void Update()
         {
-
-            if (Mathf.Abs(rb.linearVelocity.x) < absMaxVelocity.x * slow || rb.linearVelocity.x * side < 0)
+            
+            if (wallCling) { VerticalStop(); }
+            if (state.SideMove(side))
+            {
+                //Skips remaining conditions if true, as the state has handled its own unique movement
+            }
+            else if (Mathf.Abs(rb.linearVelocity.x) < absMaxVelocity.x * slow && side != 0)
             {
                 AddForce(new Vector3(side * speed, 0f, 0f));
             }
-            else if (side == 0)
+            else if (side == 0 && rb.linearVelocity.x != 0)
             {
-                rb.linearVelocity.Set(0f, rb.linearVelocity.y, 0f);
+                AddForce(new Vector3((speed / 4f) * (-rb.linearVelocity.x / Mathf.Abs(rb.linearVelocity.x)), 0f, 0f));
             }
-
-            //Skips for 1 frame
-            if (skipFrame > 0)
+            if (Mathf.Approximately(rb.linearVelocity.x, 0f))
             {
-                skipFrame--;
-                return;
+                rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
             }
 
             if (IsGrounded())
+                isWalled = 0; //Not Walled
                 state.Grounded();
+
+            if (isWalledLeft())
+            {
+                isWalled = -1; //On Wall to the Left
+                state.Walled(); 
+            }
+            else if (isWalledRight())
+            {
+                isWalled = 1; //On Wall to the Right
+                state.Walled(); 
+            }
 
         }
 
@@ -63,11 +83,16 @@ namespace Chapter.State
 
         public void ChangeState(PlayerState upState)
         {
-            Debug.Log("A");
-            state = upState;
-            state.Handle(this);
-            currentState = upState.ToString();
+            if (Time.time - stateTime > stateCooldown || upState is PassiveState)
+            {
+                stateTime = Time.time;
+                state = upState;
+                state.Handle(this);
+                currentState = upState.ToString();
+            }
         }
+
+        //Movement Handling: 
 
         public void AddForce(Vector3 dir)
         {
@@ -78,6 +103,13 @@ namespace Chapter.State
         {
             rb.AddForce(dir, ForceMode.Impulse);
         }
+        
+        public void VerticalStop()
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, 0f);
+        }
+
+        //State Handling: 
 
         public void ChangeSlow(float value)
         {
@@ -86,17 +118,30 @@ namespace Chapter.State
 
         public bool IsGrounded()
         {
-            bool test = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.5f);
             if (rb.linearVelocity.y == 0)
             {
-                Debug.Log(test);
-                return test;
+                return Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.5f);
             }
             return false;
         }
 
-        //State Handling: 
+        public bool isWalledLeft()
+        {
+            if (rb.linearVelocity.x == 0)
+            {
+                return Physics.Raycast(transform.position, Vector3.left, out RaycastHit hit, 0.5f);
+            }
+            return false;
+        }
 
+        public bool isWalledRight()
+        {
+            if (rb.linearVelocity.x == 0 || true)
+            {
+                return Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit, 0.5f);
+            }
+            return false;
+        }
 
         //Player Input Handling:
 
@@ -105,7 +150,6 @@ namespace Chapter.State
         {
             if (value.isPressed)
             {
-                skipFrame = 2;
                 state.Jump();
             }
         }

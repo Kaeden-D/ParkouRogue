@@ -17,6 +17,8 @@ namespace Chapter.State
             }
         }
 
+        public bool SideMove(float side) { return false; }
+
         public void Jump()
         {
             player.AddImpulse(new Vector3(0f, 10f, 0f));
@@ -24,6 +26,8 @@ namespace Chapter.State
         }
 
         public void Grounded() { }
+
+        public void Walled() { }
 
     }
 
