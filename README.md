@@ -1,5 +1,7 @@
 # ParkouRogue
 
+Play Me: https://kaeden-d.github.io/ParkouRogue/
+
 Start Game:
 Run through the basic start level to get to the door.
 Open the door and select one of three random room options.
