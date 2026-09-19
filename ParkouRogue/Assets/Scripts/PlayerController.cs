@@ -26,6 +26,10 @@ namespace Chapter.State
         public short isWalled = 0; //0 = Not Walled, -1 = Walled Left, 1 = Walled Right
         public bool wallCling = false;
 
+        public bool hasAirJumped = false;
+        public bool hasWallJumped = false;
+        public bool hasDashed = false;
+
         private float side = 0f;
 
         private float slow = 1f;
@@ -41,7 +45,6 @@ namespace Chapter.State
         void Update()
         {
             
-            if (wallCling) { VerticalStop(); }
             if (state.SideMove(side))
             {
                 //Skips remaining conditions if true, as the state has handled its own unique movement
@@ -50,20 +53,21 @@ namespace Chapter.State
             {
                 AddForce(new Vector3(side * speed, 0f, 0f));
             }
+            else if (Mathf.Abs(rb.linearVelocity.x) < 0.01f)
+            {
+                rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+            }
             else if (side == 0 && rb.linearVelocity.x != 0)
             {
                 AddForce(new Vector3((speed / 4f) * (-rb.linearVelocity.x / Mathf.Abs(rb.linearVelocity.x)), 0f, 0f));
             }
-            if (Mathf.Approximately(rb.linearVelocity.x, 0f))
-            {
-                rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
-            }
 
             if (IsGrounded())
+            {
                 isWalled = 0; //Not Walled
                 state.Grounded();
-
-            if (isWalledLeft())
+            }
+            else if (isWalledLeft())
             {
                 isWalled = -1; //On Wall to the Left
                 state.Walled(); 
@@ -73,17 +77,16 @@ namespace Chapter.State
                 isWalled = 1; //On Wall to the Right
                 state.Walled(); 
             }
+            else
+            {
+                isWalled = 0;
+            }
 
-        }
-
-        public void OnSideways(InputValue value)
-        {
-            side = value.Get<float>();
         }
 
         public void ChangeState(PlayerState upState)
         {
-            if (Time.time - stateTime > stateCooldown || upState is PassiveState)
+            if (Time.time - stateTime > stateCooldown)
             {
                 stateTime = Time.time;
                 state = upState;
@@ -127,20 +130,17 @@ namespace Chapter.State
 
         public bool isWalledLeft()
         {
-            if (rb.linearVelocity.x == 0)
-            {
-                return Physics.Raycast(transform.position, Vector3.left, out RaycastHit hit, 0.5f);
-            }
-            return false;
+            return Physics.Raycast(transform.position, Vector3.left, out RaycastHit hit, 0.5f);
         }
 
         public bool isWalledRight()
         {
-            if (rb.linearVelocity.x == 0 || true)
-            {
-                return Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit, 0.5f);
-            }
-            return false;
+            return Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit, 0.5f);
+        }
+
+        public void StickToWall()
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         }
 
         //Player Input Handling:
@@ -151,6 +151,19 @@ namespace Chapter.State
             if (value.isPressed)
             {
                 state.Jump();
+            }
+        }
+
+        public void OnSideways(InputValue value)
+        {
+            side = value.Get<float>();
+        }
+
+        public void OnClick(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                state.Dash();
             }
         }
 

@@ -25,7 +25,21 @@ namespace Chapter.State
             player.ChangeState(GetComponent<AirState>());
         }
 
-        public void Grounded() { }
+        public void Dash()
+        {
+            if (player.hasDashed) return;
+            player.hasDashed = true;
+            Vector2 mouseScreenPos = Mouse.current.position.ReadValue(); 
+            player.AddImpulse((Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f)) - player.transform.position).normalized * 10f);
+            player.ChangeState(GetComponent<AirState>());
+        }
+
+        public void Grounded()
+        {
+            player.hasAirJumped = false;
+            player.hasWallJumped = false;
+            player.hasDashed = false;
+        }
 
         public void Walled() { }
 

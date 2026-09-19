@@ -8,7 +8,6 @@ namespace Chapter.State
     {
 
         private PlayerController player;
-        private bool hasAirJumped = false;
 
         public void Handle(PlayerController controller)
         {
@@ -23,14 +22,24 @@ namespace Chapter.State
 
         public void Jump()
         {
-            if (hasAirJumped) return;
-            hasAirJumped = true;
+            if (player.hasAirJumped) return;
+            player.hasAirJumped = true;
             player.AddImpulse(new Vector3(0f, 5f, 0f));
+        }
+
+        public void Dash()
+        {
+            if (player.hasDashed) return;
+            player.hasDashed = true;
+            Vector2 mouseScreenPos = Mouse.current.position.ReadValue(); 
+            player.AddImpulse((Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f)) - player.transform.position).normalized * 10f);
         }
 
         public void Grounded()
         {
-            hasAirJumped = false;
+            player.hasAirJumped = false;
+            player.hasWallJumped = false;
+            player.hasDashed = false;
             player.ChangeSlow(1f);
             player.ChangeState(GetComponent<PassiveState>());
         }
