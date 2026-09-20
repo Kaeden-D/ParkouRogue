@@ -58,6 +58,7 @@ namespace Chapter.State
 
         public void Grounded()
         {
+            player.wallCling = false;
             player.hasAirJumped = false;
             player.hasWallJumped = false;
             player.hasDashed = false;
