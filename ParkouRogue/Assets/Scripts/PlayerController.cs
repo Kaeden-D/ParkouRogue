@@ -28,7 +28,7 @@ namespace Chapter.State
 
         public bool hasAirJumped = false;
         public bool hasWallJumped = false;
-        public bool hasDashed = false;
+        public bool hasClickDashed = false;
 
         private float side = 0f;
 
@@ -163,7 +163,7 @@ namespace Chapter.State
         {
             if (value.isPressed)
             {
-                state.Dash();
+                state.ClickDash();
             }
         }
 

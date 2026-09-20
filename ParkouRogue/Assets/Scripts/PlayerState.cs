@@ -9,7 +9,7 @@ namespace Chapter.State
         public void Handle(PlayerController controller);
         public bool SideMove(float side);
         public void Jump();
-        public void Dash();
+        public void ClickDash();
         public void Grounded();
         public void Walled();
 

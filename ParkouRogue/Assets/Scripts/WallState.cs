@@ -47,10 +47,10 @@ namespace Chapter.State
             player.ChangeState(GetComponent<AirState>());
         }
 
-        public void Dash()
+        public void ClickDash()
         {
-            if (player.hasDashed) return;
-            player.hasDashed = true;
+            if (player.hasClickDashed) return;
+            player.hasClickDashed = true;
             Vector2 mouseScreenPos = Mouse.current.position.ReadValue(); 
             player.AddImpulse((Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f)) - player.transform.position).normalized * 10f);
             player.ChangeState(GetComponent<AirState>());
@@ -61,7 +61,7 @@ namespace Chapter.State
             player.wallCling = false;
             player.hasAirJumped = false;
             player.hasWallJumped = false;
-            player.hasDashed = false;
+            player.hasClickDashed = false;
             player.ChangeState(GetComponent<PassiveState>());
         }
 

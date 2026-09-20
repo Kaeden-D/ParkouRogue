@@ -27,10 +27,10 @@ namespace Chapter.State
             player.AddImpulse(new Vector3(0f, 5f, 0f));
         }
 
-        public void Dash()
+        public void ClickDash()
         {
-            if (player.hasDashed) return;
-            player.hasDashed = true;
+            if (player.hasClickDashed) return;
+            player.hasClickDashed = true;
             Vector2 mouseScreenPos = Mouse.current.position.ReadValue(); 
             player.AddImpulse((Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f)) - player.transform.position).normalized * 10f);
         }
@@ -39,7 +39,7 @@ namespace Chapter.State
         {
             player.hasAirJumped = false;
             player.hasWallJumped = false;
-            player.hasDashed = false;
+            player.hasClickDashed = false;
             player.ChangeSlow(1f);
             player.ChangeState(GetComponent<PassiveState>());
         }
