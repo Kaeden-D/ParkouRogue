@@ -7,13 +7,13 @@
             "id": "71e4fc78-ea86-4d06-a734-f17eec9dd495",
             "actions": [
                 {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "555319d3-c98d-43df-bca7-27842f861b3e",
-                    "expectedControlType": "",
+                    "name": "Verticals",
+                    "type": "Value",
+                    "id": "34bacea0-0274-47b0-8510-46aec2f5e90b",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Sideways",
@@ -25,9 +25,27 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "555319d3-c98d-43df-bca7-27842f861b3e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Click",
                     "type": "Button",
                     "id": "2f3b7357-a308-47c0-86b9-d2cbb5de0a0c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "C",
+                    "type": "Button",
+                    "id": "9174009f-1949-4492-9237-de5ddf3677fb",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -120,6 +138,72 @@
                     "processors": "",
                     "groups": "",
                     "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "c09a8141-7718-4ff8-9517-edcd8e4eade0",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Verticals",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "98f17b48-10f8-4afd-a432-78e34f3196e5",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Verticals",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "48a0924e-299e-44cc-99dc-01ae3888a9a5",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Verticals",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f275c418-3d42-41b6-90c1-3f1f9ce03112",
+                    "path": "<Gamepad>/leftStick/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Verticals",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d7b81e5c-6e0d-4a3b-b5b8-641b94a2bbd0",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "C",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "79bce7ed-7bbb-4630-afaa-c8b0f3e911ee",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "C",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
