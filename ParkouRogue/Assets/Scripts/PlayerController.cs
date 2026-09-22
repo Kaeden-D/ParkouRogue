@@ -66,7 +66,7 @@ namespace Chapter.State
             }
             else if (side == 0 && rb.linearVelocity.x != 0)
             {
-                AddForce(new Vector3((speed / 4f) * (-rb.linearVelocity.x / Mathf.Abs(rb.linearVelocity.x)) * Time.deltaTime, 0f, 0f));
+                AddForce(new Vector3((speed / 3f) * (-rb.linearVelocity.x / Mathf.Abs(rb.linearVelocity.x)) * Time.deltaTime, 0f, 0f));
                 //Applies a small frictional force in the opposite direction of the player's horizontal velocity
             }
 
@@ -153,11 +153,7 @@ namespace Chapter.State
 
         public bool IsGrounded()
         {
-            if (rb.linearVelocity.y == 0)
-            {
-                return Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.5f);
-            }
-            return false;
+             return Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.5f);
         }
 
         public bool isWalledLeft()
