@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
+using static UnityEditor.PlayerSettings;
 
 namespace Chapter.State
 {
@@ -93,6 +94,8 @@ namespace Chapter.State
 
         }
 
+        //Game Handling:
+
         public void ChangeState(PlayerState upState)
         {
             if ((state == upState || upState == null) || //Skip if the state is already the same as the new state, or the new state is null
@@ -102,6 +105,11 @@ namespace Chapter.State
             state = upState;
             state.Handle(this);
             currentState = upState.ToString();
+        }
+
+        public Vector3 GetPlayerPos()
+        {
+            return this.transform.position;
         }
 
         //Movement Handling: 
