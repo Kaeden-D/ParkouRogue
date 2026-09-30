@@ -8,7 +8,7 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
 
-    public short door = 0; //1 = Right, 2 = Up, Negative = Reverse
+    //public short door = 0; //1 = Right, 2 = Up, Negative = Reverse
 
     [SerializeField]
     private LevelHandler levelHandler;
@@ -41,36 +41,47 @@ public class LevelGenerator : MonoBehaviour
 
     }
 
-    public bool GenerateLevel(GameObject level)
+    public void GenerateLevel(short door)
+    {
+        SpawnLevel(door, DecideLevel());
+    }
+
+    public bool SpawnLevel(short door, GameObject level)
     {
 
-        Vector3 loc = levelHandler.GetCurLevelPos();
-        if (door % 2 == 0)
+        Vector3Int loc = levelHandler.GetCurLevelPos();
+        if (door == 0)
         {
-            loc += new Vector3(0f, door / 2f, 0f);
+            return false;
+        }
+        else if (door % 2 == 0)
+        {
+            loc += new Vector3Int(0, door / 2, 0);
         }
         else
         {
-            loc += new Vector3(door, 0f, 0f);
+            loc += new Vector3Int(door, 0, 0);
         }
 
-        if (loc.x < 0 || loc.y < 0)
+        if (loc.x < 0 || loc.y < 0 || levelHandler.CheckLevel(loc))
             return false;
 
         GameObject space = new GameObject("Level " + loc.x + "," + loc.y);
         space.transform.SetParent(this.transform, true);
 
-        Instantiate(level).transform.SetParent(space.transform, false);
-        
         space.transform.localPosition = loc;
+
+        GameObject spawnedLevel = Instantiate(level);
+        spawnedLevel.transform.SetParent(space.transform, false);
+
+        levelHandler.AddLevel(space);
 
         return true;
     }
 
-    private void OnGUI()
+    public GameObject DecideLevel()
     {
-        if (GUILayout.Button("Spawn Level"))
-            GenerateLevel(LevelPrefabs.Keys.ElementAt(0));
+        return LevelPrefabs.Keys.ElementAt(0);
     }
 
 }
