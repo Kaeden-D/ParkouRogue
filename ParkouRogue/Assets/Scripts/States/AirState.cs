@@ -9,6 +9,10 @@ namespace Chapter.State
 
         private PlayerController player;
 
+        [SerializeField ]
+        private float c = 1f;
+        //Constant for the velocity reduction formula, which reduces the player's horizontal velocity when they land after falling
+
         public void Handle(PlayerController controller)
         {
             if (!player)
@@ -66,6 +70,12 @@ namespace Chapter.State
         {
             player.AbilityReset();
             player.ChangeSlow(1f);
+
+            float vel = Mathf.Abs(player.GetHorizontalVelocity());
+
+            vel *= (1-(vel/(vel+c)))*(1-Mathf.Exp(-1*vel)) + Mathf.Pow((vel/(vel+c)), 2);
+            player.SetHorizontalVelocity(vel * Mathf.Sign(player.GetHorizontalVelocity()));
+            
             player.ChangeState(GetComponent<PassiveState>());
         }
 

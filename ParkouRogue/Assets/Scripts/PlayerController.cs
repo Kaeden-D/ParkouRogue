@@ -128,6 +128,11 @@ namespace Chapter.State
         {
             return rb.linearVelocity.y;
         }
+
+        public void SetVerticalVelocity(float value)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, value, 0f);
+        }
         
         public void VerticalStop()
         {
@@ -137,6 +142,11 @@ namespace Chapter.State
         public float GetHorizontalVelocity()
         {
             return rb.linearVelocity.x;
+        }
+
+        public void SetHorizontalVelocity(float value)
+        {
+            rb.linearVelocity = new Vector3(value, rb.linearVelocity.y, 0f);
         }
 
         public void HorizontalStop()
