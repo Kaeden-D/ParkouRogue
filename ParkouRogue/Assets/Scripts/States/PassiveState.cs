@@ -22,7 +22,7 @@ namespace Chapter.State
         public void Jump()
         {
             player.AddImpulse(Vector3.up * 10f);
-            player.ChangeState(GetComponent<AirState>());
+            player.ChangeState(GetComponent<HovState>());
         }
 
         public void AxisDash(float vert, float side)
@@ -60,6 +60,8 @@ namespace Chapter.State
             player.AddImpulse(direction * 10f);
             player.ChangeState(GetComponent<AirState>());
         }
+
+        public void NotHoved() { }
 
         public void Grounded()
         {

@@ -11,6 +11,7 @@ namespace Chapter.State
         public void Jump();
         public void AxisDash(float vert, float side);
         public void ClickDash();
+        public void NotHoved();
         public void Grounded();
         public void Walled();
 

@@ -4,10 +4,14 @@ using UnityEngine.InputSystem;
 namespace Chapter.State
 {
 
-    public class WallState : MonoBehaviour, PlayerState
+    public class HovState : MonoBehaviour, PlayerState
     {
 
         private PlayerController player;
+
+        [SerializeField]
+        private float c = 1f;
+        //Constant for the velocity reduction formula, which reduces the player's horizontal velocity when they land after falling
 
         public void Handle(PlayerController controller)
         {
@@ -15,36 +19,16 @@ namespace Chapter.State
             {
                 player = controller;
             }
+            player.ChangeSlow(0.5f);
         }
 
-        public bool SideMove(float side)
-        {
-            if (!Mathf.Approximately(side, 0f))
-            {
-                if (Mathf.Sign(side) == Mathf.Sign(player.isWalled))
-                {
-                    return player.wallCling = true;
-                }
-                else
-                {
-                    player.isWalled = 0;
-                    player.ChangeState(GetComponent<AirState>());
-                    return player.wallCling = false;
-                }
-            }
-            player.isWalled = 0;
-            return player.wallCling = false;
-        }
+        public bool SideMove(float side) { return false; }
 
         public void Jump()
         {
-            if (player.hasWallJumped) return;
-            short wallSide = player.isWalled;
-            player.wallCling = false;
-            player.hasWallJumped = true;
-            player.isWalled = 0;
-            player.AddImpulse(new Vector3(-5f * wallSide, 10f, 0f));
-            player.ChangeState(GetComponent<AirState>());
+            if (player.hasAirJumped) return;
+            player.hasAirJumped = true;
+            player.AddImpulse(Vector3.up * 5f);
         }
 
         public void AxisDash(float vert, float side)
@@ -80,28 +64,25 @@ namespace Chapter.State
             //Stops the player from moving in the opposite direction of the dash, to prevent the dash from being cancelled out by existing momentum
 
             player.AddImpulse(direction * 10f);
+        }
+
+        public void NotHoved()
+        {
             player.ChangeState(GetComponent<AirState>());
         }
 
-        public void NotHoved() { }
-
         public void Grounded()
         {
-            player.wallCling = false;
             player.AbilityReset();
+            player.ChangeSlow(1f);
+
             player.ChangeState(GetComponent<PassiveState>());
         }
 
         public void Walled()
         {
-            if (player.wallCling)
-            {
-                player.StickToWall();
-            }
-            else
-            {
-                player.ChangeState(GetComponent<AirState>());
-            }
+            player.ChangeSlow(1f);
+            player.ChangeState(GetComponent<WallState>());
         }
 
     }

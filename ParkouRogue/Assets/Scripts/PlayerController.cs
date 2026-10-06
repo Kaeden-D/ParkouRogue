@@ -91,6 +91,11 @@ namespace Chapter.State
                 isWalled = 1; //On Wall to the Right
                 state.Walled(); 
             }
+            else if (IsNotHov())
+            {
+                isWalled = 0;
+                state.NotHoved();
+            }
             else
             {
                 isWalled = 0;
@@ -172,6 +177,12 @@ namespace Chapter.State
         public void ChangeSlow(float value)
         {
             slow = value;
+        }
+
+        public bool IsNotHov()
+        {
+            return Physics.Raycast(transform.position + Vector3.right * 0.5f, Vector3.down, out RaycastHit hit1, 0.8f)
+                || Physics.Raycast(transform.position + Vector3.left * 0.5f, Vector3.down, out RaycastHit hit2, 0.8f);
         }
 
         public bool IsGrounded()

@@ -66,6 +66,8 @@ namespace Chapter.State
             player.AddImpulse(direction * 10f);
         }
 
+        public void NotHoved() { }
+
         public void Grounded()
         {
             player.AbilityReset();
