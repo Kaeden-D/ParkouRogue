@@ -742,7 +742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abfc367103f78f4dac7ff409741f29c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 200
+  speed: 750
   absMaxVelocity: {x: 7.5, y: 100, z: 0}
   currentState: 
   stateCooldown: 0.02
@@ -810,6 +810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600a15f8c099351408303fa49c6abc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  c: 1
 --- !u!114 &922788502
 MonoBehaviour:
   m_ObjectHideFlags: 0

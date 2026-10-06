@@ -59,6 +59,11 @@ namespace Chapter.State
             {
                 AddForce(new Vector3(side * speed * Time.deltaTime, 0f, 0f));
                 //Applies a force in the direction of the player's input, if the player's horizontal velocity is below the maximum
+                if (Mathf.Sign(side) != Mathf.Sign(rb.linearVelocity.x))
+                {
+                    AddForce(new Vector3(2 * side * speed * Time.deltaTime, 0f, 0f));
+                    //Applies an increased force in the direction of the player's input, if the player is moving in the opposite direction
+                }
             }
             else if (Mathf.Abs(rb.linearVelocity.x) < 0.01f)
             {
@@ -171,17 +176,21 @@ namespace Chapter.State
 
         public bool IsGrounded()
         {
-             return Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.5f);
+            return Physics.Raycast(transform.position + Vector3.right * 0.5f, Vector3.down, out RaycastHit hit1, 0.5f)
+                || Physics.Raycast(transform.position + Vector3.left * 0.5f, Vector3.down, out RaycastHit hit2, 0.5f);
         }
 
         public bool isWalledLeft()
         {
-            return Physics.Raycast(transform.position, Vector3.left, out RaycastHit hit, 0.5f);
+
+            return Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.left, out RaycastHit hit1, 0.5f)
+                || Physics.Raycast(transform.position + Vector3.down * 0.5f, Vector3.left, out RaycastHit hit2, 0.5f);
         }
 
         public bool isWalledRight()
         {
-            return Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit, 0.5f);
+            return Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.right, out RaycastHit hit1, 0.5f)
+                || Physics.Raycast(transform.position + Vector3.down * 0.5f, Vector3.right, out RaycastHit hit2, 0.5f);
         }
 
         public void StickToWall()

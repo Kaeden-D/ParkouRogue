@@ -28,7 +28,7 @@ namespace Chapter.State
         {
             if (player.hasAirJumped) return;
             player.hasAirJumped = true;
-            player.AddImpulse(new Vector3(0f, 5f, 0f));
+            player.AddImpulse(Vector3.up * 5f);
         }
 
         public void AxisDash(float vert, float side)

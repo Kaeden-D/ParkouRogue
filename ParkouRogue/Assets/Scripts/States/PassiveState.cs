@@ -21,7 +21,7 @@ namespace Chapter.State
 
         public void Jump()
         {
-            player.AddImpulse(new Vector3(0f, 10f, 0f));
+            player.AddImpulse(Vector3.up * 10f);
             player.ChangeState(GetComponent<AirState>());
         }
 
