@@ -782,7 +782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 38098365000f99543a38c6317c7d8ecf, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -793,7 +793,87 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 922788498}
+        m_TargetAssemblyTypeName: Chapter.State.PlayerController, Assembly-CSharp
+        m_MethodName: OnVerticals
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 34bacea0-0274-47b0-8510-46aec2f5e90b
+    m_ActionName: 'Player/Verticals[/Keyboard/s,/Keyboard/w]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 922788498}
+        m_TargetAssemblyTypeName: Chapter.State.PlayerController, Assembly-CSharp
+        m_MethodName: OnSideways
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OnSideways
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 24adb4ae-9bdb-4dcf-84ad-58c4aa52e258
+    m_ActionName: 'Player/Sideways[/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 922788498}
+        m_TargetAssemblyTypeName: Chapter.State.PlayerController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OnJump
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 555319d3-c98d-43df-bca7-27842f861b3e
+    m_ActionName: 'Player/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 922788498}
+        m_TargetAssemblyTypeName: Chapter.State.PlayerController, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2f3b7357-a308-47c0-86b9-d2cbb5de0a0c
+    m_ActionName: 'Player/Click[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 922788498}
+        m_TargetAssemblyTypeName: Chapter.State.PlayerController, Assembly-CSharp
+        m_MethodName: OnC
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9174009f-1949-4492-9237-de5ddf3677fb
+    m_ActionName: 'Player/C[/Keyboard/c]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -836,7 +916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac213f08f35efd4ab5667e83e72713d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  c: 1
 --- !u!1 &1082298994
 GameObject:
   m_ObjectHideFlags: 0

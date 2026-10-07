@@ -114,6 +114,7 @@ namespace Chapter.State
             stateTime = Time.time;
             state = upState;
             state.Handle(this);
+            Debug.Log(upState);
             currentState = upState.ToString();
         }
 
@@ -212,35 +213,40 @@ namespace Chapter.State
         //Player Input Handling:
 
 
-        private void OnJump(InputValue value)
+        public void OnJump(InputAction.CallbackContext context)
         {
-            if (value.isPressed)
+            if (context.performed)
             {
+                Debug.Log("Jump");
                 state.Jump();
+            }
+            else if (context.canceled)
+            {
+                Debug.Log("Stop");
             }
         }
 
-        public void OnVerticals(InputValue value)
+        public void OnVerticals(InputAction.CallbackContext context)
         {
-            vert = value.Get<float>();
+            vert = context.ReadValue<float>();
         }
 
-        public void OnSideways(InputValue value)
+        public void OnSideways(InputAction.CallbackContext context)
         {
-            side = value.Get<float>();
+            side = context.ReadValue<float>();
         }
 
-        public void OnClick(InputValue value)
+        public void OnClick(InputAction.CallbackContext context)
         {
-            if (value.isPressed)
+            if (context.started)
             {
                 state.ClickDash();
             }
         }
 
-        public void OnC(InputValue value)
+        public void OnC(InputAction.CallbackContext context)
         {
-            if (value.isPressed)
+            if (context.started)
             {
                 state.AxisDash(vert, side);
             }

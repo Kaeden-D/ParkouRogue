@@ -9,9 +9,7 @@ namespace Chapter.State
 
         private PlayerController player;
 
-        [SerializeField]
-        private float c = 1f;
-        //Constant for the velocity reduction formula, which reduces the player's horizontal velocity when they land after falling
+        float wait = 0f;
 
         public void Handle(PlayerController controller)
         {
@@ -19,6 +17,7 @@ namespace Chapter.State
             {
                 player = controller;
             }
+            wait = Time.time;
             player.ChangeSlow(0.5f);
         }
 
@@ -26,9 +25,7 @@ namespace Chapter.State
 
         public void Jump()
         {
-            if (player.hasAirJumped) return;
-            player.hasAirJumped = true;
-            player.AddImpulse(Vector3.up * 5f);
+            player.AddForce(Vector3.up * 500f);
         }
 
         public void AxisDash(float vert, float side)
@@ -73,6 +70,8 @@ namespace Chapter.State
 
         public void Grounded()
         {
+            if (wait == Time.time)
+                return; 
             player.AbilityReset();
             player.ChangeSlow(1f);
 
