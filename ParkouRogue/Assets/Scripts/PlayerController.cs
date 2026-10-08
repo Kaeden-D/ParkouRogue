@@ -80,9 +80,9 @@ namespace Chapter.State
             {
                 float forceMult = 1f / (10f * (Time.time - jumpPressTime + 1f));
                 forceMult = Mathf.Clamp(forceMult, 0f, 1f);
-                if (forceMult > 0.08f)
+                if (forceMult > 0.085f)
                 {
-                    state.Boost(20f * forceMult);
+                    state.Boost(22f * forceMult);
                 }
             }
 
@@ -124,7 +124,7 @@ namespace Chapter.State
             stateTime = Time.time;
             state = upState;
             state.Handle(this);
-            Debug.Log(upState);
+            Debug.Log(upState + ": " + Time.frameCount + ": " + Time.time);
             currentState = upState.ToString();
         }
 
@@ -229,6 +229,10 @@ namespace Chapter.State
             if (context.started)
             {
                 state.Jump(5f);
+            }
+            else if (context.canceled)
+            {
+                jumpPressTime = 0f;
             }
         }
 

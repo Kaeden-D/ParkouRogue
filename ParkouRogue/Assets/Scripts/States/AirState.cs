@@ -26,7 +26,7 @@ namespace Chapter.State
 
         public void Jump(float forceMult)
         {
-            if (player.hasAirJumped) return;
+            if (player.hasAirJumped || player.jumpPressTime > 0f) return;
             player.jumpPressTime = Time.time;
             player.hasAirJumped = true;
             player.AddImpulse(Vector3.up * forceMult);

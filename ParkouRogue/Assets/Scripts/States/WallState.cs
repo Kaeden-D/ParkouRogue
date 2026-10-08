@@ -38,7 +38,7 @@ namespace Chapter.State
 
         public void Jump(float forceMult)
         {
-            if (player.hasWallJumped) return;
+            if (player.hasWallJumped || player.jumpPressTime > 0f) return;
             short wallSide = player.isWalled;
             player.wallCling = false;
             player.jumpPressTime = Time.time;

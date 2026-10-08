@@ -71,15 +71,7 @@ namespace Chapter.State
             player.ChangeState(GetComponent<AirState>());
         }
 
-        public void Grounded()
-        {
-            if (wait == Time.time)
-                return; 
-            player.AbilityReset();
-            player.ChangeSlow(1f);
-
-            player.ChangeState(GetComponent<PassiveState>());
-        }
+        public void Grounded() { }
 
         public void Walled()
         {
