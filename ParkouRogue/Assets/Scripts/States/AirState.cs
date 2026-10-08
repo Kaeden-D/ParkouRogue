@@ -24,11 +24,17 @@ namespace Chapter.State
 
         public bool SideMove(float side) { return false; }
 
-        public void Jump()
+        public void Jump(float forceMult)
         {
             if (player.hasAirJumped) return;
+            player.jumpPressTime = Time.time;
             player.hasAirJumped = true;
-            player.AddImpulse(Vector3.up * 5f);
+            player.AddImpulse(Vector3.up * forceMult);
+        }
+
+        public void Boost(float forceMult)
+        {
+            player.AddForce(Vector3.up * forceMult);
         }
 
         public void AxisDash(float vert, float side)

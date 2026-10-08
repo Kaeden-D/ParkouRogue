@@ -19,10 +19,16 @@ namespace Chapter.State
 
         public bool SideMove(float side) { return false; }
 
-        public void Jump()
+        public void Jump(float forceMult)
         {
-            player.AddImpulse(Vector3.up * 3f);
+            player.jumpPressTime = Time.time;
+            player.AddImpulse(Vector3.up * forceMult);
             player.ChangeState(GetComponent<HovState>());
+        }
+
+        public void Boost(float forceMult)
+        {
+            player.AddForce(Vector3.up * forceMult);
         }
 
         public void AxisDash(float vert, float side)

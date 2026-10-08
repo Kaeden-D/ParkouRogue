@@ -36,15 +36,21 @@ namespace Chapter.State
             return player.wallCling = false;
         }
 
-        public void Jump()
+        public void Jump(float forceMult)
         {
             if (player.hasWallJumped) return;
             short wallSide = player.isWalled;
             player.wallCling = false;
+            player.jumpPressTime = Time.time;
             player.hasWallJumped = true;
             player.isWalled = 0;
-            player.AddImpulse(new Vector3(-5f * wallSide, 10f, 0f));
+            player.AddImpulse(new Vector3(-1f * wallSide, 2f, 0f) * forceMult);
             player.ChangeState(GetComponent<AirState>());
+        }
+
+        public void Boost(float forceMult)
+        {
+            player.AddForce(Vector3.up * forceMult);
         }
 
         public void AxisDash(float vert, float side)

@@ -26,7 +26,7 @@
                 },
                 {
                     "name": "Jump",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "555319d3-c98d-43df-bca7-27842f861b3e",
                     "expectedControlType": "",
                     "processors": "",

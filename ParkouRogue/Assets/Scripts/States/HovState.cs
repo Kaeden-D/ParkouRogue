@@ -18,14 +18,17 @@ namespace Chapter.State
                 player = controller;
             }
             wait = Time.time;
+            player.jumpPressTime = Time.time;
             player.ChangeSlow(0.5f);
         }
 
         public bool SideMove(float side) { return false; }
 
-        public void Jump()
+        public void Jump(float forceMult) { }
+
+        public void Boost(float forceMult)
         {
-            player.AddForce(Vector3.up * 500f);
+            player.AddForce(Vector3.up * forceMult);
         }
 
         public void AxisDash(float vert, float side)

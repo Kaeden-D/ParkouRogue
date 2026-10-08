@@ -76,6 +76,16 @@ namespace Chapter.State
                 //Applies a small frictional force in the opposite direction of the player's horizontal velocity
             }
 
+            if (jumpPressTime > 0f)
+            {
+                float forceMult = 1f / (10f * (Time.time - jumpPressTime + 1f));
+                forceMult = Mathf.Clamp(forceMult, 0f, 1f);
+                if (forceMult > 0.08f)
+                {
+                    state.Boost(20f * forceMult);
+                }
+            }
+
             if (IsGrounded())
             {
                 isWalled = 0; //Not Walled
@@ -169,6 +179,7 @@ namespace Chapter.State
 
         public void AbilityReset()
         {
+            if (!(state is PassiveState)) jumpPressTime = -1f;
             hasAirJumped = false;
             hasWallJumped = false;
             if (clickDashTime + dashCooldown < Time.time) hasClickDashed = false;
@@ -212,17 +223,12 @@ namespace Chapter.State
 
         //Player Input Handling:
 
-
+        public float jumpPressTime = -1f;
         public void OnJump(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.started)
             {
-                Debug.Log("Jump");
-                state.Jump();
-            }
-            else if (context.canceled)
-            {
-                Debug.Log("Stop");
+                state.Jump(5f);
             }
         }
 
