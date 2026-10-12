@@ -12,6 +12,7 @@ namespace Chapter.State
     {
 
         private PlayerState state = null;
+        [SerializeField]
         private Rigidbody rb;
 
         public float speed;
@@ -20,6 +21,9 @@ namespace Chapter.State
         public string currentState;
         public float stateCooldown;
         public float stateTime;
+
+        [SerializeField]
+        private int coins = 0;
 
 
         //State Variables: 
@@ -43,7 +47,6 @@ namespace Chapter.State
         void Start()
         {
 
-            rb = FindFirstObjectByType<Rigidbody>();
             ChangeState(GetComponent<PassiveState>());
 
         }
@@ -126,6 +129,11 @@ namespace Chapter.State
             state.Handle(this);
             Debug.Log(upState + ": " + Time.frameCount + ": " + Time.time);
             currentState = upState.ToString();
+        }
+
+        public void ChangeCoins(int value)
+        {
+            coins += value;
         }
 
         public Vector3 GetPlayerPos()
