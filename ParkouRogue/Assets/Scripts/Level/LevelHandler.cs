@@ -52,21 +52,4 @@ public class LevelHandler : MonoBehaviour
             0);
     }
 
-    private void OnGUI()
-    {
-        GameObject level = null;
-        if (GUILayout.Button("Check Level"))
-        {
-            if (level = GetLevel(new Vector3Int(1, 0, 0)))
-            {
-                Debug.Log("test True");
-            }
-            else
-            {
-                Debug.Log("Test False");
-            }
-        }
-            
-    }
-
 }
