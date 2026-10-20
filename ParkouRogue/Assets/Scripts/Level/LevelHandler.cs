@@ -47,8 +47,8 @@ public class LevelHandler : MonoBehaviour
     {
         Vector3 playerPos = player.GetPlayerPos();
         return new Vector3Int(
-            (int)(playerPos.x / 40f),
-            (int)(playerPos.y / 22.5f),
+            (int)(playerPos.x / this.transform.localScale.x),
+            (int)(playerPos.y / this.transform.localScale.y),
             0);
     }
 

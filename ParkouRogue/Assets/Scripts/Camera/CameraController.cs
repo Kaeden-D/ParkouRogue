@@ -20,9 +20,10 @@ public class CameraController : MonoBehaviour
     public Vector3 GetNewCamPos()
     {
         Vector3 curLevelPos = levelHand.GetCurLevelPos();
+        Vector3 curScale = levelHand.transform.localScale;
         return new Vector3
-            (40f * curLevelPos.x + 20f,
-            22.5f * curLevelPos.y + 11.25f,
+            (curScale.x * curLevelPos.x + (curScale.x / 2),
+            curScale.y * curLevelPos.y + (curScale.y / 2),
             -5f);
     }
 
