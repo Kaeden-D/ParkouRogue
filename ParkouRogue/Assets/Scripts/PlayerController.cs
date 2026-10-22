@@ -2,11 +2,10 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
-using static UnityEditor.PlayerSettings;
+//using static UnityEditor.PlayerSettings;
 
 namespace Chapter.State
 {
-
 
     public class PlayerController : MonoBehaviour
     {

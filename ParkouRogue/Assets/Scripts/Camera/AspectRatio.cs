@@ -51,7 +51,6 @@ public class AspectRatio : MonoBehaviour
 
     private void Update()
     {
-        SetCameraAspect();
-  
+        SetCameraAspect();  
     }
 }
