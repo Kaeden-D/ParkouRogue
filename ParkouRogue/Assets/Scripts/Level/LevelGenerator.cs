@@ -12,6 +12,8 @@ public class LevelGenerator : MonoBehaviour
 
     [SerializeField]
     private LevelHandler levelHandler;
+    [SerializeField]
+    private GameObject Level_Prefabs;
 
     private static Dictionary<GameObject, int> LevelPrefabs = new Dictionary<GameObject, int>(); 
     private const string TargetScriptType = "LevelController";
@@ -19,6 +21,12 @@ public class LevelGenerator : MonoBehaviour
     private void Start()
     {
 
+        foreach (Transform level in Level_Prefabs.transform)
+        {
+            LevelPrefabs.Add(level.gameObject, level.GetComponent<LevelController>().GetWeight());
+        }
+
+        /*
         string[] guids = AssetDatabase.FindAssets("t:Prefab");
 
         foreach (string guid in guids)
@@ -38,6 +46,7 @@ public class LevelGenerator : MonoBehaviour
             }
 
         }
+        */
 
     }
 
@@ -70,9 +79,12 @@ public class LevelGenerator : MonoBehaviour
         space.transform.SetParent(this.transform, true);
 
         space.transform.localPosition = loc;
+        space.transform.localScale = Vector3.one;
 
         GameObject spawnedLevel = Instantiate(level);
         spawnedLevel.transform.SetParent(space.transform, false);
+
+        spawnedLevel.transform.localPosition = Vector3.zero;
 
         levelHandler.AddLevel(space);
 
@@ -81,7 +93,23 @@ public class LevelGenerator : MonoBehaviour
 
     public GameObject DecideLevel()
     {
-        return LevelPrefabs.Keys.ElementAt(0);
+        int weights = 0;
+        foreach (var (level, weight) in LevelPrefabs)
+        {
+            weights += weight;
+        }
+
+        weights = Random.Range(0, weights) + 1;
+
+        foreach (var (level, weight) in LevelPrefabs)
+        {
+            weights -= weight;
+            if (weights <= 0)
+            {
+                return level;
+            }
+        }
+        return null;
     }
 
 }
