@@ -25,15 +25,4 @@ public class PickupHandler : MonoBehaviour
         refresh.transform.position = pos;
     }
 
-    private void OnGUI()
-    {
-
-        if (GUILayout.Button("Spawn Pickup"))
-        {
-            GenerateCoin(new Vector3(20, 15, 0), 1);
-            GenerateRefresh(new Vector3(30, 15, 0));
-        }
-
-    }
-
 }

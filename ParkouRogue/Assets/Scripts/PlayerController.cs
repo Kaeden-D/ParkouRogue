@@ -7,7 +7,7 @@ using UnityEngine.XR;
 namespace Chapter.State
 {
 
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : Pausable
     {
 
         private PlayerState state = null;
@@ -23,6 +23,7 @@ namespace Chapter.State
 
         [SerializeField]
         private int coins = 0;
+        
 
 
         //State Variables: 
@@ -233,6 +234,7 @@ namespace Chapter.State
         public float jumpPressTime = -1f;
         public void OnJump(InputAction.CallbackContext context)
         {
+            if (paused) return;
             if (context.started)
             {
                 state.Jump(5f);
@@ -245,16 +247,19 @@ namespace Chapter.State
 
         public void OnVerticals(InputAction.CallbackContext context)
         {
+            if (paused) return;
             vert = context.ReadValue<float>();
         }
 
         public void OnSideways(InputAction.CallbackContext context)
         {
+            if (paused) return;
             side = context.ReadValue<float>();
         }
 
         public void OnClick(InputAction.CallbackContext context)
         {
+            if (paused) return;
             if (context.started)
             {
                 state.ClickDash();
@@ -263,6 +268,7 @@ namespace Chapter.State
 
         public void OnC(InputAction.CallbackContext context)
         {
+            if (paused) return;
             if (context.started)
             {
                 state.AxisDash(vert, side);
