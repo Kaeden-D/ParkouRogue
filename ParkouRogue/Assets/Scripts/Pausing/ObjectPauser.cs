@@ -20,7 +20,7 @@ public class ObjectPauser : MonoBehaviour
 
     private void Start()
     {
-        //Locate Shop Script and give access
+        FindFirstObjectByType<PauserHandler>().AddPauser(this);
     }
 
     public void PauseObject()
@@ -63,20 +63,6 @@ public class ObjectPauser : MonoBehaviour
             rb.linearVelocity = savedVelocity;
             rb.angularVelocity = savedAngularVelocity;
         }
-    }
-
-    private void OnGUI()
-    {
-
-        if (GUILayout.Button("Pause"))
-        {
-            PauseObject();
-        }
-        if (GUILayout.Button("Resume"))
-        {
-            ResumeObject();
-        }
-
     }
 
 }

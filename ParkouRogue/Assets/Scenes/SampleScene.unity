@@ -1791,6 +1791,7 @@ GameObject:
   - component: {fileID: 922788503}
   - component: {fileID: 922788501}
   - component: {fileID: 922788502}
+  - component: {fileID: 922788504}
   - component: {fileID: 922788500}
   m_Layer: 0
   m_Name: Player Character
@@ -1927,6 +1928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abfc367103f78f4dac7ff409741f29c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paused: 0
   rb: {fileID: 922788493}
   speed: 750
   absMaxVelocity: {x: 7.5, y: 100, z: 0}
@@ -2103,6 +2105,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac213f08f35efd4ab5667e83e72713d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &922788504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922788492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5dedadca235fb2498300ffdd615cf87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  script: {fileID: 922788498}
 --- !u!43 &925522318
 Mesh:
   m_ObjectHideFlags: 0
@@ -3773,6 +3788,54 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1675960469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1675960471}
+  - component: {fileID: 1675960470}
+  m_Layer: 0
+  m_Name: Shop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1675960470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675960469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c3f2bd8abd9dfb459a9430f312bc78c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopUI: {fileID: 0}
+  pauseHandler: {fileID: 1906133261}
+  baseRerollPrice: 5
+  curRerollPrice: 0
+--- !u!4 &1675960471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675960469}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1693193208
 Mesh:
   m_ObjectHideFlags: 0
@@ -4008,6 +4071,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4240b5352b14db043a5e356c85ffa76f, type: 3}
+--- !u!1 &1906133260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1906133262}
+  - component: {fileID: 1906133261}
+  m_Layer: 0
+  m_Name: Pauser
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1906133261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906133260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f40c15fad1f824e864ab36ede4e8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pausers: []
+--- !u!4 &1906133262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906133260}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2077017193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1380486558218555875, guid: de51c3e69ba823346a8e92a28f663620, type: 3}
@@ -4205,3 +4313,5 @@ SceneRoots:
   - {fileID: 1082298995}
   - {fileID: 1465502272}
   - {fileID: 103310825}
+  - {fileID: 1906133262}
+  - {fileID: 1675960471}
