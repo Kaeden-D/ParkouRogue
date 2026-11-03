@@ -4,28 +4,14 @@ using UnityEngine;
 public class PauserHandler : MonoBehaviour
 {
 
-    [SerializeField]
-    private List<ObjectPauser> pausers = new List<ObjectPauser>();
-
-    public void AddPauser(ObjectPauser pauser)
-    {
-        pausers.Add(pauser);
-    }
-
     public void Pause()
     {
-        foreach (ObjectPauser pauser in pausers)
-        {
-            pauser.PauseObject();
-        }
+        Time.timeScale = 0f; // Pause the game time
     }
 
     public void Resume()
     {
-        foreach (ObjectPauser pauser in pausers)
-        {
-            pauser.ResumeObject();
-        }
+        Time.timeScale = 1f; // Resume the game time
     }
 
     private void OnGUI()

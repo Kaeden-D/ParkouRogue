@@ -7,7 +7,7 @@ using UnityEngine.XR;
 namespace Chapter.State
 {
 
-    public class PlayerController : Pausable
+    public class PlayerController : MonoBehaviour
     {
 
         private PlayerState state = null;
@@ -24,7 +24,7 @@ namespace Chapter.State
         [SerializeField]
         private int coins = 0;
         
-
+        private bool paused = false;
 
         //State Variables: 
 
