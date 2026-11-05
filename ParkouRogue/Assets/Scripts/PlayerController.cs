@@ -23,15 +23,18 @@ namespace Chapter.State
 
         [SerializeField]
         private int coins = 0;
-        
-        private bool paused = false;
+
+        [SerializeField]
+        private int ante = 1;
 
         //State Variables: 
 
         public short isWalled = 0; //0 = Not Walled, -1 = Walled Left, 1 = Walled Right
         public bool wallCling = false;
 
-        public bool hasAirJumped = false;
+        public short maxAirJumps = 2;
+        public short curAirJumps = 2;
+
         public bool hasWallJumped = false;
         public float dashCooldown = 0.5f;
         public bool hasAxisDashed = false;
@@ -58,7 +61,7 @@ namespace Chapter.State
             {
                 //Skips remaining conditions if true, as the state has handled its own unique movement
             }
-            else if (side != 0 && (Mathf.Abs(rb.linearVelocity.x) < absMaxVelocity.x * slow || (rb.linearVelocity.x == 0f || Mathf.Sign(side) != Mathf.Sign(rb.linearVelocity.x))))
+            else if ((side != 0 && (Mathf.Abs(rb.linearVelocity.x) < absMaxVelocity.x * slow) || (rb.linearVelocity.x == 0f || Mathf.Sign(side) != Mathf.Sign(rb.linearVelocity.x))))
             {
                 AddForce(new Vector3(side * speed * Time.deltaTime, 0f, 0f));
                 //Applies a force in the direction of the player's input, if the player's horizontal velocity is below the maximum
@@ -136,6 +139,21 @@ namespace Chapter.State
             coins += value;
         }
 
+        public int GetCoins()
+        {
+            return coins;
+        }
+
+        public void ChangeAnte(int value)
+        {
+            ante += value;
+        }
+
+        public int GetAnte()
+        {
+            return ante;
+        }
+
         public Vector3 GetPlayerPos()
         {
             return this.transform.position;
@@ -188,7 +206,7 @@ namespace Chapter.State
         public void AbilityReset()
         {
             if (!(state is PassiveState)) jumpPressTime = -1f;
-            hasAirJumped = false;
+            curAirJumps = maxAirJumps;
             hasWallJumped = false;
             if (clickDashTime + dashCooldown < Time.time) hasClickDashed = false;
             if (axisDashTime + dashCooldown < Time.time) hasAxisDashed = false;
@@ -234,7 +252,6 @@ namespace Chapter.State
         public float jumpPressTime = -1f;
         public void OnJump(InputAction.CallbackContext context)
         {
-            if (paused) return;
             if (context.started)
             {
                 state.Jump(5f);
@@ -247,19 +264,16 @@ namespace Chapter.State
 
         public void OnVerticals(InputAction.CallbackContext context)
         {
-            if (paused) return;
             vert = context.ReadValue<float>();
         }
 
         public void OnSideways(InputAction.CallbackContext context)
         {
-            if (paused) return;
             side = context.ReadValue<float>();
         }
 
         public void OnClick(InputAction.CallbackContext context)
         {
-            if (paused) return;
             if (context.started)
             {
                 state.ClickDash();
@@ -268,7 +282,6 @@ namespace Chapter.State
 
         public void OnC(InputAction.CallbackContext context)
         {
-            if (paused) return;
             if (context.started)
             {
                 state.AxisDash(vert, side);

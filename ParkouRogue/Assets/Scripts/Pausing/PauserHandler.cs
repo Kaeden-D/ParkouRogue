@@ -14,18 +14,4 @@ public class PauserHandler : MonoBehaviour
         Time.timeScale = 1f; // Resume the game time
     }
 
-    private void OnGUI()
-    {
-
-        if (GUILayout.Button("Pause"))
-        {
-            Pause();
-        }
-        if (GUILayout.Button("Resume"))
-        {
-            Resume();
-        }
-
-    }
-
 }
