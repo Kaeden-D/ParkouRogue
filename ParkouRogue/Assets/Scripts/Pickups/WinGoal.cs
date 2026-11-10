@@ -11,7 +11,7 @@ public class WinGoal : Pickup
         yAxis = Random.Range(0, Mathf.Sqrt(Mathf.Pow(ante, 3)));
         Debug.Log(yAxis);
         xAxis = Mathf.Sqrt(Mathf.Pow(ante, 3) - Mathf.Pow(yAxis, 2));
-        Vector3 newPos = new Vector3(xAxis, yAxis, 0f);
+        Vector3 newPos = new Vector3(xAxis, yAxis, 0f) * 35;
         this.transform.position = newPos;
     }
 
@@ -24,6 +24,7 @@ public class WinGoal : Pickup
         //player.ChangeAnte(1);
 
         base.CollisionDetected(collision);
+        this.gameObject.SetActive(true);
     }
 
     private void OnGUI()
