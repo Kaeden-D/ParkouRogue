@@ -28,7 +28,7 @@ namespace Chapter.State
         private int ante = 1;
 
         //State Variables: 
-
+        [Header("State Variables")]
         public short isWalled = 0; //0 = Not Walled, -1 = Walled Left, 1 = Walled Right
         public bool wallCling = false;
 
@@ -42,6 +42,7 @@ namespace Chapter.State
         public bool hasClickDashed = false;
         public float clickDashTime = 0f;
         
+        [Header("Movement Variables")]
         private float vert = 0f;
         private float side = 0f;
 
@@ -130,7 +131,7 @@ namespace Chapter.State
             stateTime = Time.time;
             state = upState;
             state.Handle(this);
-            Debug.Log(upState + ": " + Time.frameCount + ": " + Time.time);
+            //Debug.Log(upState + ": " + Time.frameCount + ": " + Time.time);
             currentState = upState.ToString();
         }
 
@@ -288,6 +289,22 @@ namespace Chapter.State
             }
         }
 
-    }
+        private void OnGUI()
+        {
 
+            if (GUILayout.Button("Add"))
+            {
+                Items.SpeedUp += 1;
+            }
+            if (GUILayout.Button("Minus"))
+            {
+                Items.SpeedUp -= 1;
+            }
+            if (GUILayout.Button("Count"))
+            {
+                Debug.Log(Items.SpeedUp);
+            }
+
+        }
+    }
 }

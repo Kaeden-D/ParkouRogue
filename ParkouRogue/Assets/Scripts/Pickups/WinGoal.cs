@@ -34,20 +34,4 @@ public class WinGoal : Pickup
         this.gameObject.SetActive(true);
     }
 
-    /*private void OnGUI()
-    {
-
-        if (GUILayout.Button("Add"))
-        {
-            TestAnte++;
-            MoveGoal(TestAnte);
-        }
-        if (GUILayout.Button("Minus"))
-        {
-            TestAnte--;
-            MoveGoal(TestAnte);
-        }
-
-    }*/
-
 }
