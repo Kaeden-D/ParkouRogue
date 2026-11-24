@@ -62,7 +62,7 @@ namespace Chapter.State
             {
                 //Skips remaining conditions if true, as the state has handled its own unique movement
             }
-            else if ((side != 0 && (Mathf.Abs(rb.linearVelocity.x) < absMaxVelocity.x * slow) || (rb.linearVelocity.x == 0f || Mathf.Sign(side) != Mathf.Sign(rb.linearVelocity.x))))
+            else if (side != 0 && ((Mathf.Abs(rb.linearVelocity.x) < absMaxVelocity.x * slow) || (rb.linearVelocity.x == 0f || Mathf.Sign(side) != Mathf.Sign(rb.linearVelocity.x))))
             {
                 AddForce(new Vector3(side * speed * Time.deltaTime, 0f, 0f));
                 //Applies a force in the direction of the player's input, if the player's horizontal velocity is below the maximum
@@ -72,14 +72,14 @@ namespace Chapter.State
                     //Applies an increased force in the direction of the player's input, if the player is moving in the opposite direction
                 }
             }
-            else if (Mathf.Abs(rb.linearVelocity.x) < 0.01f)
+            else if (Mathf.Abs(rb.linearVelocity.x) < 0.02f)
             {
                 rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
                 //Stops the player from sliding when the velocity is very low
             }
             else if (side == 0 && rb.linearVelocity.x != 0)
             {
-                AddForce(new Vector3((speed / 3f) * (-rb.linearVelocity.x / Mathf.Abs(rb.linearVelocity.x)) * Time.deltaTime, 0f, 0f));
+                AddForce(new Vector3((speed / 3f) * (-Mathf.Sign(rb.linearVelocity.x)) * Time.deltaTime, 0f, 0f));
                 //Applies a small frictional force in the opposite direction of the player's horizontal velocity
             }
 
@@ -89,7 +89,7 @@ namespace Chapter.State
                 forceMult = Mathf.Clamp(forceMult, 0f, 1f);
                 if (forceMult > 0.085f)
                 {
-                    state.Boost(22f * forceMult);
+                    state.Boost(15f * 1000f * forceMult * Time.deltaTime);
                 }
             }
 
@@ -292,17 +292,9 @@ namespace Chapter.State
         private void OnGUI()
         {
 
-            if (GUILayout.Button("Add"))
+            if (GUILayout.Button("Quit"))
             {
-                Items.SpeedUp += 1;
-            }
-            if (GUILayout.Button("Minus"))
-            {
-                Items.SpeedUp -= 1;
-            }
-            if (GUILayout.Button("Count"))
-            {
-                Debug.Log(Items.SpeedUp);
+                Application.Quit();
             }
 
         }
